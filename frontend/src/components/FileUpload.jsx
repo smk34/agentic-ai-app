@@ -1,56 +1,58 @@
-import { useState, useRef } from "react"
-import axios from "axios"
+import { useState, useRef } from "react";
+import axios from "axios";
 
 const FileUpload = () => {
-  const [selectedFile, setSelectedFile] = useState(null)
-  const [uploading, setUploading] = useState(false)
-  const [result, setResult] = useState(null)
-  const fileInputRef = useRef(null)
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [result, setResult] = useState(null);
+  const fileInputRef = useRef(null);
+
+  const apiBase = import.meta.env.VITE_BACKEND_URL;
 
   const handleFileSelect = (event) => {
-    const file = event.target.files[0]
-    if (file) setSelectedFile(file)
-  }
+    const file = event.target.files[0];
+    if (file) setSelectedFile(file);
+  };
 
   const handleDrop = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     if (event.dataTransfer.files && event.dataTransfer.files.length > 0) {
-      setSelectedFile(event.dataTransfer.files[0])
-      event.dataTransfer.clearData()
+      setSelectedFile(event.dataTransfer.files[0]);
+      event.dataTransfer.clearData();
     }
-  }
+  };
 
   const handleDragOver = (event) => {
-    event.preventDefault()
-  }
+    event.preventDefault();
+  };
 
   const handleClick = () => {
-    fileInputRef.current.click()
-  }
+    fileInputRef.current.click();
+  };
 
   const handleUpload = async () => {
-    if (!selectedFile) return
-    setUploading(true)
-    setResult(null)
+    if (!selectedFile) return;
+    setUploading(true);
+    setResult(null);
 
-    const formData = new FormData()
-    formData.append('audio', selectedFile)
+    const formData = new FormData();
+    formData.append("audio", selectedFile);
 
     try {
-      const response = await axios.post('http://localhost:8000/api/upload', formData, {
+      const response = await axios.post(`${apiBase}/api/upload`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
-      })
+      });
 
-      setResult(response.data)
+      setResult(response.data);
     } catch (error) {
-      console.error("Upload error:", error)
-      setResult({ error: "Upload failed. Please try again." })
+      console.error("Upload error:", error);
+      setResult({ error: "Upload failed. Please try again." });
     } finally {
-      setUploading(false)
+      setUploading(false);
     }
-  }
+  };
 
   return (
     <div className="space-y-4">
@@ -87,7 +89,8 @@ const FileUpload = () => {
               />
             </svg>
             <p className="text-zinc-400">
-              <span className="font-semibold">Click to upload</span> or drag and drop
+              <span className="font-semibold">Click to upload</span> or drag and
+              drop
             </p>
             <p className="text-xs text-zinc-500">MP3, WAV, M4A, FLAC</p>
           </>
@@ -119,9 +122,13 @@ const FileUpload = () => {
                     <li>Call Opening: {result.scores.callOpening}</li>
                     <li>Issue Capture: {result.scores.issueCapture}</li>
                     <li>Agent Sentiment: {result.scores.agentSentiment}</li>
-                    <li>Customer Sentiment: {result.scores.customerSentiment}</li>
+                    <li>
+                      Customer Sentiment: {result.scores.customerSentiment}
+                    </li>
                     <li>CSAT/FCR: {result.scores.csatFcr}</li>
-                    <li>Resolution Quality: {result.scores.resolutionQuality}</li>
+                    <li>
+                      Resolution Quality: {result.scores.resolutionQuality}
+                    </li>
                   </ul>
                   <p className="mt-2 text-zinc-300 italic">
                     Feedback: {result.scores.feedbackSummary}
@@ -133,7 +140,7 @@ const FileUpload = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default FileUpload
+export default FileUpload;
