@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import { AuthProvider, useAuth } from "./context/AuthContext";
+import NotFound from "./pages/NotFound";
 
 function PrivateRoute({ children }) {
   const { isAuthenticated } = useAuth();
@@ -24,6 +25,7 @@ function App() {
               </PrivateRoute>
             }
           />
+           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

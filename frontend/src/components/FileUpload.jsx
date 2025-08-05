@@ -95,7 +95,7 @@ const FileUpload = () => {
       </div>
 
       <button
-        className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-semibold transition-all duration-200"
+        className="cursor-pointer w-full py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-semibold transition-all duration-200"
         onClick={handleUpload}
         disabled={!selectedFile || uploading}
       >
