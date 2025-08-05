@@ -6,16 +6,13 @@ export const transcribeAudio = (filePath) => {
   return new Promise((resolve, reject) => {
     const outputDir = './transcripts';
 
-    // Ensure transcripts directory exists
     if (!fs.existsSync(outputDir)) {
       fs.mkdirSync(outputDir);
     }
 
-    // Convert to absolute path and normalize for CLI (use forward slashes for Windows compatibility)
     const absolutePath = path.resolve(filePath).replaceAll('\\', '/');
     const safeOutputDir = path.resolve(outputDir).replaceAll('\\', '/');
 
-    // Construct Whisper CLI command
     const command = `whisper "${absolutePath}" --model medium --language en --output_format txt --output_dir "${safeOutputDir}"`;
 
     console.log(`Running command: ${command}`); // for debug

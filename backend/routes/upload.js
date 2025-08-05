@@ -5,6 +5,6 @@ import { handleUpload } from '../controllers/uploadController.js';
 const router = Router();
 
 // Handles POST to /api/upload with field name 'audio'
-router.post('/', upload.single('audio'), handleUpload);
+router.post('/upload', upload.single('audio'), handleUpload);
 
 export default router;
