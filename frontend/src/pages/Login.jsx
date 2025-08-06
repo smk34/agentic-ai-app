@@ -41,9 +41,6 @@ const LoginPage = () => {
     <div className="min-h-screen flex items-center justify-center bg-black px-4">
       <div className="w-full max-w-sm bg-zinc-900 rounded-xl p-8 shadow-lg text-white">
         <h2 className="text-xl font-semibold mb-1">Login to your account</h2>
-        <p className="text-sm text-zinc-400 mb-6">
-          Enter your email below to login to your account
-        </p>
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
             <label className="block text-sm mb-1 text-zinc-300">Username</label>
